@@ -15,7 +15,7 @@ spec:
 #         app: pgpods
     containers:
       - name: pgpods-container
-        image: com-jasmit-pgpods/pgpods-server:0.3.2
+        image: com-jasmit-pgpods/pgpods-server:0.3.7
         tty: true
         stdin: true
         ports:
