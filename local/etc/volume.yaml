@@ -9,10 +9,10 @@ spec:
   storageClassName: pgpods-storage 
   persistentVolumeReclaimPolicy: Retain
   capacity:
-    storage: 4Gi
+    storage: 16Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /opt/app/pgpods/data 
+    path: /opt/app/postgres/data 
 
 ---

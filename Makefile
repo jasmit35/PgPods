@@ -1,34 +1,47 @@
 #
-ENV := "prod"
-PGHOME := "/home/jeff/prod/pgpods"
+ENV := "devl"
+# ENV := "test"
+# ENV := "prod"
+
+VERSION := "0.1.1"
+
+########################################
+
+ifeq (${ENV}, "devl")
+	PGHOME := "/Users/jeff/devl/pgpods"
+endif
+
+ifeq (${ENV}, "test")
+	PGHOME := "/Users/jeff/test/pgpods"
+endif
+
+ifeq (${ENV}, "prod")
+	PGHOME := "/home/jeff/prod/pgpods"
+endif
 
 
 create-image:
 	cd ${PGHOME}/local/etc
-	docker build --tag pgpods-server:0.1.0 .
+	docker build --tag jasmit/pgpods-server:${VERSION} .
 
 push-image:
-	docker push jasmit/pgpods:pgpods-server:0.1.0
-	# docker tag ea62acceb9cf jasmit/pgpods:0.1.0
-	# docker push jasmit/pgpods:0.1.0
+	docker image push jasmit/pgpods-server:${VERSION}
 
 
 
 create-storage:
 	kubectl create -f ${PGHOME}/local/etc/volume.yaml
-	sleep 3
-	kubectl get pv -o wide
 	kubectl create -f ${PGHOME}/local/etc/claim.yaml
 	sleep 3
+	kubectl get pv -o wide
 	kubectl get pvc -o wide
 
 delete-storage:
 	kubectl delete -f ${PGHOME}/local/etc/claim.yaml
-	sleep 3
-	kubectl get pvc -o wide
 	kubectl delete -f ${PGHOME}/local/etc/volume.yaml
 	sleep 3
 	kubectl get pv -o wide
+	kubectl get pvc -o wide
 
 
 

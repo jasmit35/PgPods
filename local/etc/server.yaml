@@ -31,7 +31,7 @@ spec:
       hostname: pgpods-server
       containers:
         - name: pgpods 
-          image: com-jasmit-pgpods/pgpods-server:0.1.0
+          image: jasmit/pgpods-server:0.1.1
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 5432 

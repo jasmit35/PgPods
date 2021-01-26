@@ -6,7 +6,7 @@ FROM postgres:12-alpine
 ENV LANG="en_US.utf8"
 
 #  Our environment variables
-ENV PGBASE=/opt/app/pgpods
+ENV PGBASE=/opt/app/postgres
 ENV PGDATA=$PGBASE/data
 
 # RUN /usr/sbin/apt-get autoclean && apt-get -y update && apt-get -y upgrade && apt-get install -y procps
