@@ -5,17 +5,17 @@ FROM postgres:12-alpine
 #  Environment variables in postgres base image
 ENV LANG="en_US.utf8"
 
-#  Our environment variables
+#  Environment variables
 ENV PGBASE=/opt/app/postgres
-ENV PGDATA=$PGBASE/data
+ENV PGDATA=$PGBASE/data/pgdb
 
 # RUN /usr/sbin/apt-get autoclean && apt-get -y update && apt-get -y upgrade && apt-get install -y procps
 
 RUN set -x \
-#  Adjust postgres account
-        && mkdir -p $PGBASE \
-        && chown -R postgres:postgres $PGBASE \
-        && chmod -R 755 $PGBASE 
+#  Adjust postgres space 
+    && mkdir -p $PGDATA \
+    && chmod -R 777 $PGDATA
+#     && chown -R postgres:postgres $PGDATA \
 #         && usermod --shell /bin/bash --home $PGBASE postgres
 #  Update /etc/security/limits.conf
 #         && echo "@postgres             soft    nofile          65536" >> /etc/security/limits.conf \

@@ -1,9 +1,9 @@
 #
-ENV := "devl"
+# ENV := "devl"
 # ENV := "test"
-# ENV := "prod"
+ENV := "prod"
 
-VERSION := "0.1.1"
+VERSION := "0.1.6"
 
 ########################################
 
