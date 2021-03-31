@@ -13,6 +13,6 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /opt/app/postgres/data 
+    path: /opt/app/pgpods/data 
 
 ---
