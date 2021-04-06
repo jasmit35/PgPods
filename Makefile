@@ -3,7 +3,7 @@ ENV := "devl"
 # ENV := "test"
 # ENV := "prod"
 
-VERSION := "v0.2.0"
+VERSION := "v0.2.1"
 
 ########################################
 
@@ -34,7 +34,7 @@ push-image:
 
 dc-build:
 	docker-compose --file=${DCYAML} build
-	docker tag pgpods_database:latest jasmit/pgpods-database:${VERSION}
+	docker tag pgpods_database:latest jasmit/pgpods-server:${VERSION}
 
 dc-run:
 	docker-compose --file=${DCYAML} up -d

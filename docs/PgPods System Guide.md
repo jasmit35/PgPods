@@ -4,12 +4,19 @@
 
 ### Create the persistant storage
 
+`make create-volume`
+
 ### Build a new version of the Docker image
 
+`make dc-build`
 
-### Use K8s to start the server pod
+### Start the server container
+
+`make dc-run`
 
 ### Check the status
+
+`make dc-ps`
 
 ## Startup Debugging
 
