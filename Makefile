@@ -3,54 +3,48 @@ ENV := "devl"
 # ENV := "test"
 # ENV := "prod"
 
-VERSION := "v0.1.7"
+VERSION := "v0.2.0"
 
 ########################################
 
 ifeq (${ENV}, "devl")
-	PODHOME := "/Users/jeff/devl/pgpods"
+	PODHOME := "/Users/file==/devl/pgpods"
 endif
 
 ifeq (${ENV}, "test")
-	PODHOME := "/Users/jeff/test/pgpods"
+	PODHOME := "/Users/file==/test/pgpods"
 endif
 
 ifeq (${ENV}, "prod")
-	PODHOME := "/home/jeff/prod/pgpods"
+	PODHOME := "/home/file==/prod/pgpods"
 endif
 
 
-dbc-build:
-	docker-compose build
+dc-build:
+	docker-compose build --file=docker-compose-${ENV}.yaml
 	docker tag pgpods_database:latest jasmit/pgpods-database:${VERSION}
 
 db-build:
 	cd $PODHOME/pgpods
 	docker build --tag jasmit/pgpods-database:${VERSION} .
 
-dbc-run:
-	docker-compose up -d
+dc-run:
+	docker-compose up -d --file=docker-compose-${ENV}.yaml
 
-dbc-stop:
-	docker-compose stop database 
+dc-stop:
+	docker-compose stop database --file=docker
 
-dbc-logs:
-	docker-compose log database
+dc-logs:
+	docker-compose log database --file=docker
 
-dbc-volume:
+dc-volume:
 	docker volume create --name=db-data
 
 push-image:
 	docker image push jasmit/pgpods-server:${VERSION}
 
 
-
-create-storage:
-	kubectl create -f ${PGHOME}/local/etc/volume.yaml
-	kubectl create -f ${PGHOME}/local/etc/claim.yaml
-	sleep 3
-	kubectl get pv -o wide
-	kubectl get pvc -o wide
+########################################
 
 create-server:
 	kubectl create -f ${PGHOME}/local/etc/server.yaml
@@ -61,8 +55,3 @@ delete-server:
 	kubectl delete -f ${PGHOME}/local/etc/server.yaml
 	sleep 3
 	kubectl get all
-
-
-
-connect-pod:
-	kubectl exec -it pgpods-server --namespace com-jasmit-pgpods -- /bin/bash
