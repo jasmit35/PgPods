@@ -8,15 +8,18 @@ VERSION := "v0.2.0"
 ########################################
 
 ifeq (${ENV}, "devl")
-	PODHOME := "/Users/file==/devl/pgpods"
+	PODHOME := "/Users/jeff/devl/pgpods"
+	DCYAML := "${PODHOME}/docker-compose-devl.yaml"
 endif
 
 ifeq (${ENV}, "test")
-	PODHOME := "/Users/file==/test/pgpods"
+	PODHOME := "/Users/jeff/test/pgpods"
+	DCYAML := "${PODHOME}/docker-compose-test.yaml"
 endif
 
 ifeq (${ENV}, "prod")
-	PODHOME := "/home/file==/prod/pgpods"
+	PODHOME := "/home/jeff/prod/pgpods"
+	DCYAML := "${PODHOME}/docker-compose-prod.yaml"
 endif
 
 ########################################
@@ -30,17 +33,17 @@ push-image:
 ########################################
 
 dc-build:
-	docker-compose --file=docker-compose-${ENV}.yaml build
+	docker-compose --file=${DCYAML} build
 	docker tag pgpods_database:latest jasmit/pgpods-database:${VERSION}
 
 dc-run:
-	docker-compose --file=docker-compose-${ENV}.yaml up -d
+	docker-compose --file=${DCYAML} up -d
 
 dc-ps:
-	docker-compose --file=docker-compose-${ENV}.yaml ps 
+	docker-compose --file=${DCYAML} ps 
 
 dc-log:
-	docker-compose --file=docker-compose-${ENV}.yaml log database
+	docker-compose --file=$DCYAML log database
 
 dc-stop:
-	docker-compose --file=docker-compose-${ENV}.yaml stop database
+	docker-compose --file=$DCYAML} stop database

@@ -2,7 +2,7 @@ version: "3.7"
 services:
 
   database:
-    build: pgpods 
+    image: jasmit/pgpods-service:v0.2.0 
     restart: always
     environment:
       - ENVIRONMENT=${ENVIRONMENT}
