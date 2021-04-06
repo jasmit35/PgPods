@@ -19,39 +19,28 @@ ifeq (${ENV}, "prod")
 	PODHOME := "/home/file==/prod/pgpods"
 endif
 
+########################################
 
-dc-build:
-	docker-compose build --file=docker-compose-${ENV}.yaml
-	docker tag pgpods_database:latest jasmit/pgpods-database:${VERSION}
-
-db-build:
-	cd $PODHOME/pgpods
-	docker build --tag jasmit/pgpods-database:${VERSION} .
-
-dc-run:
-	docker-compose up -d --file=docker-compose-${ENV}.yaml
-
-dc-stop:
-	docker-compose stop database --file=docker
-
-dc-logs:
-	docker-compose log database --file=docker
-
-dc-volume:
+create-volume:
 	docker volume create --name=db-data
 
 push-image:
 	docker image push jasmit/pgpods-server:${VERSION}
 
-
 ########################################
 
-create-server:
-	kubectl create -f ${PGHOME}/local/etc/server.yaml
-	sleep 3
-	kubectl get all
+dc-build:
+	docker-compose --file=docker-compose-${ENV}.yaml build
+	docker tag pgpods_database:latest jasmit/pgpods-database:${VERSION}
 
-delete-server:
-	kubectl delete -f ${PGHOME}/local/etc/server.yaml
-	sleep 3
-	kubectl get all
+dc-run:
+	docker-compose --file=docker-compose-${ENV}.yaml up -d
+
+dc-ps:
+	docker-compose --file=docker-compose-${ENV}.yaml ps 
+
+dc-log:
+	docker-compose --file=docker-compose-${ENV}.yaml log database
+
+dc-stop:
+	docker-compose --file=docker-compose-${ENV}.yaml stop database
