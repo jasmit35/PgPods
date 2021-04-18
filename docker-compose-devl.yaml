@@ -9,7 +9,7 @@ services:
     secrets:
       - db-password
     volumes:
-      - db-data:/opt/app/postgres/data
+      - postgres-data:/opt/app/postgres/data
     networks:
       - backend-network
     ports:
@@ -23,5 +23,5 @@ networks:
   backend-network:
 
 volumes:
-  db-data:
+  postgres-data:
     external: true

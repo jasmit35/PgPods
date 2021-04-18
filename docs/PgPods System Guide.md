@@ -2,7 +2,19 @@
 # Development Cycle
 ## Startup
 
-### Create the persistant storage
+### Shutdown the previous version (if running)
+
+`make dc-ps`
+
+`make dc-stop`
+
+`make dc-rm`
+
+### Remove the existing storage (think first! Bye Bye data)
+
+`make remove-volume`
+
+### Create new persistant storage
 
 `make create-volume`
 
@@ -18,40 +30,21 @@
 
 `make dc-ps`
 
-## Startup Debugging
+## Debugging
 
 ## Validation
 
+`make dc-exec`
+
 ## Shutdown
-
-### Complete the cycle
-
-
-
-
-## Create a name space for the project
-
-
-## Create the persistant storage
-
-
-## Build the image
-
-
-## Create the pod
-
-
-Correct the version of the image.
-
-
-## Shut down
-
-
-## Debugging
 
 ### Finalizing the version in development.
 
-Follow the steps in the Fire-Starter user's guide. Their are no custom steps at this point.
 
+##  Deployment in test
 
+Complete the normal git and auto_update steps from Fire-Starter.
 
+Create the file pgpods/.secrets-db-data that holds the Postgres account's password. This file does not get saved to Git Hub (on purpose) and must be recreated each time.
+
+Edit pgpods/Makefile to insure the corrrect environment is being set.

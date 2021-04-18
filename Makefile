@@ -3,7 +3,7 @@ ENV := "devl"
 # ENV := "test"
 # ENV := "prod"
 
-VERSION := "v0.2.1"
+VERSION := "v0.3.0"
 
 ########################################
 
@@ -25,7 +25,10 @@ endif
 ########################################
 
 create-volume:
-	docker volume create --name=db-data
+	docker volume create --name=postgres-data
+
+remove-volume:
+	docker volume rm db-data
 
 push-image:
 	docker image push jasmit/pgpods-server:${VERSION}
@@ -45,5 +48,11 @@ dc-ps:
 dc-log:
 	docker-compose --file=$DCYAML log database
 
+dc-exec:
+	docker exec -it pgpods_database_1 /bin/bash
+
 dc-stop:
-	docker-compose --file=$DCYAML} stop database
+	docker-compose --file=${DCYAML} stop database
+
+dc-rm:
+	docker-compose --file=${DCYAML} rm database
