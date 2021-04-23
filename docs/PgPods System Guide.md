@@ -39,6 +39,19 @@
 ## Shutdown
 
 ### Finalizing the version in development.
+Finsh the commit and pushes to the git repositories:
+
+`git add --all`
+
+`git commit -m ''`
+
+`git push github master`
+
+`git push woz master`
+
+Upload the new image to docker hub:
+
+`make push-image`
 
 
 ##  Deployment in test
