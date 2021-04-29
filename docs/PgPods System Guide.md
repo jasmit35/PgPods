@@ -56,7 +56,7 @@ Upload the new image to docker hub:
 
 ##  Deployment in test
 
-Complete the normal git and auto_update steps from Fire-Starter.
+Complete the normal auto_update steps from Fire-Starter.
 
 Create the file pgpods/.secrets-db-data that holds the Postgres account's password. This file does not get saved to Git Hub (on purpose) and must be recreated each time.
 
