@@ -19,27 +19,29 @@ endif
 
 DCYAML := "${PODHOME}/docker-compose.yaml"
 
-########################################
-
 echo-env:
 	echo "Environment ${ENVIRONMENT}"
 	echo "PODHOME ${PODHOME}"
 
 volume-create:
 	docker volume ls
-	ifeq (${ENV}, "devl")
-		docker volume create --name=postgres-data
-	endif
-	ifeq (${ENV}, "test")
-		docker volume create --name=postgres-data
-	endif
-	ifeq (${ENV}, "prod")
-		docker volume create --driver local \
-		  --opt type=nfs \
-		  --opt o=addr=192.168.1.16,nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,rw \
-		  --opt device=192.168.1.16:/export/postgres/data \
-		postgres-data
-	endif
+
+ifeq (${ENV}, "devl")
+	docker volume create --name=postgres-data
+endif
+
+ifeq (${ENV}, "test")
+	docker volume create --name=postgres-data
+endif
+
+ifeq (${ENV}, "prod")
+	volume create --driver local \
+	--opt type=nfs \
+	--opt o=addr=192.168.1.16,nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,rw \
+	--opt device=192.168.1.16:/export/postgres/data \
+	postgres-data
+endif
+
 	docker volume ls
 
 volume-ls:
@@ -65,7 +67,7 @@ run:
 	docker-compose --file=${DCYAML} up -d
 
 ps:
-	docker-compose --file=${DCYAML} ps 
+	docker compose --file=${DCYAML} ps 
 
 log:
 	docker-compose --file=${DCYAML} logs database
