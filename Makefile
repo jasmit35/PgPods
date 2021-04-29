@@ -1,26 +1,23 @@
-#
-ENV := "devl"
-# ENV := "test"
-# ENV := "prod"
 
-VERSION := "v0.3.1"
+VERSION := "v0.3.2"
 
 ########################################
 
+ENV := "${ENVIRONMENT}"
+
 ifeq (${ENV}, "devl")
 	PODHOME := "/Users/jeff/devl/pgpods"
-	DCYAML := "${PODHOME}/docker-compose.yaml"
 endif
 
 ifeq (${ENV}, "test")
 	PODHOME := "/Users/jeff/test/pgpods"
-	DCYAML := "${PODHOME}/docker-compose.yaml"
 endif
 
 ifeq (${ENV}, "prod")
 	PODHOME := "/home/jeff/prod/pgpods"
-	DCYAML := "${PODHOME}/docker-compose.yaml"
 endif
+
+DCYAML := "${PODHOME}/docker-compose.yaml"
 
 ########################################
 
@@ -64,20 +61,20 @@ push-image:
 
 ########################################
 
-dc-run:
+run:
 	docker-compose --file=${DCYAML} up -d
 
-dc-ps:
+ps:
 	docker-compose --file=${DCYAML} ps 
 
-dc-log:
+log:
 	docker-compose --file=${DCYAML} logs database
 
-dc-exec:
+exec:
 	docker exec -it pgpods_database_1 /bin/bash
 
-dc-stop:
+stop:
 	docker-compose --file=${DCYAML} stop database
 
-dc-rm:
+rm:
 	docker-compose --file=${DCYAML} rm database
