@@ -23,51 +23,56 @@ echo-env:
 	echo "Environment ${ENVIRONMENT}"
 	echo "PODHOME ${PODHOME}"
 
-volume-create:
+storage-create:
 	docker volume ls
 
 ifeq (${ENV}, "devl")
-	docker volume create --name=postgres-data
+	docker volume create --name=pgpods-storage
 endif
 
 ifeq (${ENV}, "test")
-	docker volume create --name=postgres-data
+	docker volume create --name=pgpods-storage
 endif
 
 ifeq (${ENV}, "prod")
-	volume create --driver local \
+	docker volume create --driver local \
 	--opt type=nfs \
 	--opt o=addr=192.168.1.16,nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,rw \
 	--opt device=192.168.1.16:/export/postgres/data \
-	postgres-data
+    pgpods-storage	
 endif
 
 	docker volume ls
 
-volume-ls:
+storage-ls:
 	docker volume ls
 
-volume-rm:
+storage-rm:
 	docker volume ls
-	docker volume rm postgres-data
+	docker volume rm pgpods-storage 
 	docker volume ls
+
+network-create:
+	docker network create pgpods-network
+
+network-ls:
+	docker network ls 
+
+network-rm:
+	docker network rm pgpods-network
+
+
 
 ########################################
 
-build-image:
+build:
 	docker-compose --file=${DCYAML} build
-	docker tag pgpods_database:latest jasmit/pgpods-server:${VERSION}
-
-push-image:
-	docker image push jasmit/pgpods-server:${VERSION}
-
-########################################
 
 run:
 	docker-compose --file=${DCYAML} up -d
 
 ps:
-	docker compose --file=${DCYAML} ps 
+	docker-compose --file=${DCYAML} ps 
 
 log:
 	docker-compose --file=${DCYAML} logs database
@@ -80,3 +85,9 @@ stop:
 
 rm:
 	docker-compose --file=${DCYAML} rm database
+
+test-run: build run
+
+push:
+	docker tag pgpods_database:latest jasmit/pgpods-server:${VERSION}
+	docker image push jasmit/pgpods-server:${VERSION}

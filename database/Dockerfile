@@ -1,6 +1,6 @@
 #  Docker file to create my main Postgres database
 
-FROM postgres:13.2
+FROM postgres:12.7
 
 
 #  Additional software we need in the image

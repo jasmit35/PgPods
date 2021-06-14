@@ -55,12 +55,35 @@ Upload the new image to docker hub:
 
 
 ##  Deployment in test
+Shutdown the existing components:
+
+`make stop`
+
+`make rm`
+
+`docker network rm postgres-network`
+
+`make volume-rm`
+
+Run the update script:
+
+`auto-update -a pgpods`
+
+Pull the new docker image:
+
+`docker pull jasmit/pgpods:v0.3.x`
 
 Complete the normal auto_update steps from Fire-Starter.
 
 Create the file pgpods/.secrets-db-data that holds the Postgres account's password. This file does not get saved to Git Hub (on purpose) and must be recreated each time.
 
-Remove the existing container and volume.
+Rebuild the network and storage componets:
+
+`make network-create`
+
+`make storage-create`
+
+
 
 
 
