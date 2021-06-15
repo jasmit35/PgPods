@@ -1,5 +1,5 @@
 
-VERSION := "v0.3.2"
+VERSION := "v0.2.1"
 
 ########################################
 
@@ -54,12 +54,15 @@ storage-rm:
 
 network-create:
 	docker network create pgpods-network
+	docker network ls 
 
 network-ls:
 	docker network ls 
 
 network-rm:
+	docker network ls 
 	docker network rm pgpods-network
+	docker network ls 
 
 
 
@@ -75,19 +78,19 @@ ps:
 	docker-compose --file=${DCYAML} ps 
 
 log:
-	docker-compose --file=${DCYAML} logs database
+	docker-compose --file=${DCYAML} logs server 
 
-exec:
-	docker exec -it pgpods_database_1 /bin/bash
+exec-server:
+	docker-compose exec server /bin/bash
 
 stop:
-	docker-compose --file=${DCYAML} stop database
+	docker-compose --file=${DCYAML} stop server 
 
 rm:
-	docker-compose --file=${DCYAML} rm database
+	docker-compose --file=${DCYAML} rm server 
 
 test-run: build run
 
 push:
-	docker tag pgpods_database:latest jasmit/pgpods-server:${VERSION}
+	docker tag pgpods_server:latest jasmit/pgpods-server:${VERSION}
 	docker image push jasmit/pgpods-server:${VERSION}

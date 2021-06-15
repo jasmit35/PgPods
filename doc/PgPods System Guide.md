@@ -54,7 +54,7 @@ Upload the new image to docker hub:
 `make push-image`
 
 
-##  Deployment in test
+##  Deployment in Test & Production
 Shutdown the existing components:
 
 `make stop`
@@ -83,6 +83,11 @@ Rebuild the network and storage componets:
 
 `make storage-create`
 
+Relaunch the container:
+
+`make build`
+
+`make run`
 
 
 
