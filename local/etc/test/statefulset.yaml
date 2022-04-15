@@ -29,14 +29,14 @@ spec:
           name: pgpods-port
           # protocol: "TCP"
         volumeMounts:
-        - name: pgpods-volume 
+        - name: pgpods-volume-claim
           mountPath: /opt/app/pgpods/data
   volumeClaimTemplates:
   - metadata:
-      name: pgpods-volume
+      name: pgpods-volume-claim
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: local-path 
       resources:
         requests:
-          storage: 4Gi
+          storage: 16Gi

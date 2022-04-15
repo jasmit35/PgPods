@@ -1,0 +1,5 @@
+#
+make delete-statefulset
+#
+make delete-service
+#

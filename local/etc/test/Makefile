@@ -28,7 +28,7 @@ delete-volume:
 # 	kubectl get persistentvolumeclaims -A
 
 delete-volume-claim:
-	kubectl delete persistentvolumeclaims pgpods-volume-pgpods-statefulset-0 --namespace=pgpods
+	kubectl delete persistentvolumeclaims pgpods-volume-claim-pgpods-statefulset-0 --namespace=pgpods
 
 
 ################################################################################
