@@ -1,0 +1,17 @@
+#
+echo ''
+echo '---  persistentvolumes  ---'
+kubectl get persistentvolumes -A
+#
+echo ''
+echo '---  persistentvolumeclaims  ---'
+kubectl get persistentvolumeclaims -A
+#
+echo ''
+echo '---  services  ---'
+kubectl get services --namespace=pgpods
+#
+echo ''
+echo '---  statefulsets  ---'
+kubectl get statefulsets --namespace=pgpods
+#

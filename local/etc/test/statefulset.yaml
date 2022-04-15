@@ -1,0 +1,42 @@
+#
+#  statefulset.yaml
+#
+kind: StatefulSet 
+apiVersion: apps/v1
+metadata:
+  name: pgpods-statefulset
+  namespace: pgpods
+#   labels:
+#     app: pgpods
+spec:
+  selector:
+    matchLabels:
+      app: pgpods 
+  serviceName: pgpods-service 
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pgpods
+    spec:
+      containers:
+      - name: pgpods-container
+        image: jasmit/pgpods-server:v0.3.2
+        # tty: true
+        # stdin: true
+        ports:
+        - containerPort: 5432
+          name: pgpods-port
+          # protocol: "TCP"
+        volumeMounts:
+        - name: pgpods-volume 
+          mountPath: /opt/app/pgpods/data
+  volumeClaimTemplates:
+  - metadata:
+      name: pgpods-volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: local-path 
+      resources:
+        requests:
+          storage: 4Gi

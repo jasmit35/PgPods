@@ -1,0 +1,23 @@
+#
+#  docker-compose.yaml
+#
+version: "3"
+services:
+
+  server:
+    build: $HOME/devl/pgpods/server 
+    container_name: pgpods-server
+    restart: always
+    volumes:
+      - pgpods-data:/opt/app/postgres/data
+    networks:
+      - pgpods-network
+    ports:
+      - 5432:5432
+
+networks:
+  pgpods-network:
+
+volumes:
+  pgpods-data:
+    external: true

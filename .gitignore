@@ -1,5 +1,4 @@
 #
 .DS_Store
-.secrets-*
-obsolete
+.secrets
 workspace.code-workspace

@@ -1,0 +1,20 @@
+#
+#
+#
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pgpods-volume 
+  namespace: pgpods
+  labels:
+    app: pgpods
+spec:
+  storageClassName: local-path 
+  capacity:
+    storage: 16Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /Users/jeff/test/pgpods/data 
+  persistentVolumeReclaimPolicy: Retain
+

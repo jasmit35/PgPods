@@ -1,0 +1,8 @@
+#
+make create-volume
+#
+make create-service
+#
+make create-statefulset
+#
+

@@ -1,0 +1,9 @@
+#
+make delete-statefulset
+#
+make delete-service
+#
+make delete-volume-claim
+#
+make delete-volume
+#
