@@ -1,11 +1,20 @@
+<<<<<<< HEAD:server/Dockerfile
 #  Docker file to create my Postgres server 
 #  Start with the postgres 12 image on alpine Linux
+=======
+FROM postgres:13.3
+>>>>>>> 46b974380aebb45f6d36d6f6cf6e5771ec66830d:pgpods/Dockerfile
 
-FROM postgres:12-alpine
+#  Additional software we need in the image
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y nfs-common
 
-#  Environment variables in postgres base image
+#  Environment variables that affect the base image and the db creation
+ENV PGBASE=/opt/app/postgres
+ENV LANG="en_US.utf8"
+ENV PGDATA=$PGBASE/data/database
 ENV POSTGRES_USER="postgres"
 ENV POSTGRES_PASSWORD="postgres"
+<<<<<<< HEAD:server/Dockerfile
 ENV LANG="en_US.utf8"
 ENV POSTGRES_DB="common"
 # ENV PGDATA=/opt/app/postgres/data/database
@@ -32,6 +41,15 @@ EXPOSE 5432
 
 #  Our startup script
 ENTRYPOINT ["local/bin/docker-entrypoint.sh"]
+=======
+ 
+#  Expose the port the image defined
+EXPOSE 5432
+
+WORKDIR $PGBASE 
+COPY local local
+
+>>>>>>> 46b974380aebb45f6d36d6f6cf6e5771ec66830d:pgpods/Dockerfile
 
 
 

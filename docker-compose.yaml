@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+
+  server:
+    build: server 
+    container_name: pgpods-server
+    hostname: pgpods-server
+    restart: always
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT}
+    secrets:
+      - db-password
+    volumes:
+      - pgpods-storage:/opt/app/postgres/data
+    networks:
+      - pgpods-network
+    ports:
+      - 5432:5432
+
+secrets:
+  db-password:
+    file: ./.secrets-db-password 
+
+volumes:
+  pgpods-storage:
+    external: true
+
+networks:
+  pgpods-network:
+    external: true

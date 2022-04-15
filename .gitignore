@@ -1,4 +1,9 @@
 #
 .DS_Store
+<<<<<<< HEAD
 .secrets
+=======
+.secrets-*
+.obsolete
+>>>>>>> 46b974380aebb45f6d36d6f6cf6e5771ec66830d
 workspace.code-workspace
